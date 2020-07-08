@@ -134,7 +134,4 @@ if (isset($_GET['logout'])) {
     header('location: Form.php');
     exit();
 }
-
-
-?>
 ?>
