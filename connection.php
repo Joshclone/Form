@@ -1,8 +1,14 @@
-<?php
+<?php 
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'josh');
 
-$conn = mysqli_connect("localhost", "root", "", "ighub form");
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-if (!$conn) {
-    echo "Connection Successful";
-} 
+if ($conn->connect_error) {
+die('Database error:' . $conn->connect_error);
+
+
+}
 ?>
