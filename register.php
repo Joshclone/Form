@@ -1,77 +1,104 @@
 <?php
-require_once 'controller.php';?>
+require_once "controller.php";
+?>
+
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="ighub.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-compatible" content="ie=edge">
+    <title>Innovation Growth Hub</title>
 </head>
+<body>
+    <div class="container-fluid m-4">
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center">
+                <h1>Innovation Growth Hub</h1>
+                <p>Sign up to join us!</p>
 
+                    <?php
+                        if($status !== "") { ?>
+                        <div class="alert alert-primary my-3">
+                           <?php echo $status; ?>
+                        </div>    
+                    <?php }
+                    ?>
+            </div>
+        </div>
 
-<body style="background: #CCC;">
-    <h1>Innvation Growth Hub</h1><br>
-    <h4>Sign Up</h4>
-    <h4>Please fill this form to create an account.</h4>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <form action="register.php" method="post">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="user_name" id="username" class="form-control <?php if(isset($errors['user_name_empty'])){ ?> is-invalid <?php } ?>" value="<?php if(isset($username)){echo $username;} ?>">
 
-    <div id="frm" class="jumbotron" style="width: 500px;">
+                        <?php
+                        if(isset($errors['user_name_empty'])){ ?>
+                            <small class="text-danger">
+                                <?php echo $errors['user_name_empty']; ?>
+                            </small>
+                        <?php }
+                        ?>
+                    </div>
 
-        <form action="register.php" method="POST">
-            <?php
-            if (count($errors) > 0) : ?>
-            <p class="alert alert-danger">
-                <?php
-                    foreach ($errors as $error) : ?>
-                <li> <?php echo $error; ?>
-                    <?php endforeach; ?>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="user_email" id="email" class="form-control <?php if(isset($errors['user_email_empty'])){ ?> is-invalid <?php } ?>" value="<?php if(isset($email)){echo $email;} ?>">
+                        
+                        <?php
+                        if(isset($errors['user_email_format'])){ ?>
+                            <small class="text-danger">
+                            <?php echo $errors['user_email_format']; ?>
+                            </small>
+                         <?php }else if(isset($errors['user_email_empty'])){ ?>
+                            <small class="text-danger">
+                            <?php echo $errors['user_email_empty']; ?>
+                            </small>
+                         <?php }?>
+                    </div>
 
-            </p>
-            <?php endif; ?>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="user_password" id="password" class="form-control <?php if(isset($errors['user_password_empty']) OR isset($errors['password_match_error'])){ ?> is-invalid <?php } ?>">
 
-            <p>
-                <!--<label>Username:</label>-->
+                        <?php 
+                        if(isset($errors['user_password_empty'])){?>
+                        <small class="text-danger">
+                        <?php echo $errors['user_password_empty']; ?>
+                        </small>
+                        <?php }else if(isset($errors['password_match_error'])){?>
+                            <small class="text-danger">
+                            <?php echo $errors['password_match_error']; ?>
+                            </small>
+                        <?php } ?>
+                    </div>
 
-                <input type="text" id="username" method="POST" name="username" class="form-control"
-                    placeholder="Username" value="<?php echo $username; ?>" required />
-            </p>
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input type="password" name="user_password_confirmation" id="password_confirmation" class="form-control <?php if(isset($errors['user_password_confirmation_empty']) OR isset($errors['password_match_error'])){ ?> is-invalid <?php } ?>">
 
-            <p>
-                <input type="text" id="email" name="email" value="<?php echo $email; ?>" placeholder="Email"
-                    class="form-control" required />
-            </p>
+                        <?php 
+                        if(isset($errors['user_password_confirmation_empty'])){?>
+                        <small class="text-danger">
+                        <?php echo $errors['user_password_confirmation_empty']; ?>
+                        </small>
+                        <?php }else if(isset($errors['password_match_error'])){?>
+                            <small class="text-danger">
+                            <?php echo $errors['password_match_error']; ?>
+                            </small>
+                        <?php } ?>
+                    </div>
 
-            <p>
-                <!--<label>Password:</label>-->
+                    <div class="form-group">
+                        <button type="submit" name="sign_up" class="btn btn-primary btn-block">Sign Up</button>
 
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control"
-                    required />
-            </p>
-
-            <p>
-                <!--<label>Password:</label>-->
-
-                <input type="password" id="password" name="passwordConf" placeholder="Confirm Password"
-                    class="form-control" required />
-            </p>
-
-            <p>
-
-                <!--<input type="submit" id="btn" value="login" />-->
-                <button type="submit" class="btn btn-success mt-3" name="Register">Register</button>
-            </p>
-
-            <p>
-                Aready a member?<a href="form.php">Sign in</a>
-            </p>
-        </form>
+                        <p class="my-3">Do you have an account already? <a href="login.php">Sign in!</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-
 </body>
-
-
-
 </html>

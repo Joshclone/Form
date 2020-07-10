@@ -1,66 +1,36 @@
-<?php
-require_once 'controller.php';
+<?php require_once "controller.php";
 
-//if user is not logged in, they cannot access this page 
-if (!isset($_SESSION['id'])) {
-
-    header('location: Form.php');
-    exit();
+if(empty($_SESSION['username'])){
+    header('location: login.php');
 }
-
-
 ?>
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>User registration system using PHP and MySQL</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="ighub.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-compatible" content="ie=edge">
+    <title>Innovation Growth Hub</title>
 </head>
-
-
-<body style="background: #CCC;">
-    <div class="jumbotron">
-        <div class="alert  <?php echo $_SESSION['alert-class']; ?>">
-            <?php echo $_SESSION['message'];
-            unset($_SESSION['message']);
-            unset($_SESSION['alert-class']);
-
-
-
-            ?>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+            <div class="jumbotron-fluid mx-auto my-5">
+            <div class="card-header">
+                <div class="card-title">Welcome! <?php echo $_SESSION['username']; ?></div>
+            </div>
+            <div class="card-body">
+                <p>We're pleased you're able join us here!</p>
+                <p>Wonders await you...</p>
+                <form action="home.php" method="post">
+                <input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
+                <button type="submit" name="sign_out" class="btn btn-primary">Log out</button>
+                </form>
+            </div>
+            </div>
+            </div>
         </div>
-
-        <h3>Welcome, <?php echo $_SESSION['username']; ?> </h3>
-        <a href="" class="logout">logout</a>
-
-
-
-
-
-
-        <div>
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 </body>
-
 </html>
